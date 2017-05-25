@@ -1,5 +1,8 @@
 ### RagnarSDK
 
+[![Latest Stable Version](https://poser.pugx.org/weiboad/fierysdk/v/stable)](https://packagist.org/packages/weiboad/fierysdk)
+[![Latest Unstable Version](https://poser.pugx.org/weiboad/fierysdk/v/unstable)](https://packagist.org/packages/weiboad/fierysdk)
+[![License](https://poser.pugx.org/weiboad/fierysdk/license)](https://packagist.org/packages/weiboad/fierysdk)
 ### Introdution
 [中文文档](./README_CN.md)
 > * for the complex system online tracing.
