@@ -1,9 +1,5 @@
 <?php
-require_once "../src/MidTool.php";
-require_once "../src/RagnarConst.php";
-require_once "../src/RagnarSDK.php";
-require_once "../src/Traceid.php";
-require_once "../src/Util.php";
+require_once "vendor/autoload.php";
 
 use \Adinf\RagnarSDK\RagnarSDK as RagnarSDK;
 use \Adinf\RagnarSDK\RagnarConst as RagnarConst;
@@ -25,10 +21,16 @@ RagnarSDK::devmode("ragnar_projectname");
 //设置要索引的日志附加数据，在ES搜索内能看到，不建议加太多
 RagnarSDK::setMeta(123, "", array("extrakey" => "extraval"));
 
+//输出info级别日志
 RagnarSDK::RecordLog(RagnarConst::LOG_TYPE_INFO, __FILE__, __LINE__, "module1_msg", "i wish i can fly!");
+
+//输出debug级别日志
 RagnarSDK::RecordLog(RagnarConst::LOG_TYPE_DEBUG, __FILE__, __LINE__, "module2_msg", "i wish i'm rich!");
 
+//自定义性能埋点示范
 $digpooint = RagnarSDK::digLogStart(__FILE__, __LINE__, "ragnar_test");
+//性能测试内容
+//自定义性能埋点结束
 RagnarSDK::digLogEnd($digpooint, "happy");
 
 $a = RagnarSDK::getChildCallParam();
