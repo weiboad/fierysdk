@@ -159,7 +159,8 @@ curl埋点建议，key请沿用否则会在ragnar展示有问题，如果按照�
     $ext = array("errorno" => $errno, "error" => curl_error($this->ch));
     $info = curl_getinfo($this->ch);
     
-    
+    //digCurlEnd($digPoint, $url, $method, $postParam, $getParam, $curlInfo, $errCode, $errMsg, $result)
+
     RagnarSDK::digLogEnd($digpooint, array(
                 "url" => $info['url'], "method" => self::get_method(),
                 "param" => array("post" => $this->post_fields, "get" => $this->query_fields),
@@ -182,6 +183,7 @@ Mysql埋点建议，请沿用key及常量字段，按以下方式埋点后可以
     //do some sql execute
     
     //这个放在查询后,用于性能监控
+    //RagnarSDK::digMysqlEnd($digPoint, $sql, "sql的参数", "select\delete\update\...", "execute_sql");
     RagnarSDK::digLogEnd($digpooint, array("sql" => $sql, "data" => "sql的参数", "op" => "select\delete\update\...", "fun" => "execute_sql"));
     
     //如果查询后错误

@@ -164,6 +164,7 @@ curl dig point
     $ext = array("errorno" => $errno, "error" => curl_error($this->ch));
     $info = curl_getinfo($this->ch);
     
+    //digCurlEnd($digPoint, $url, $method, $postParam, $getParam, $curlInfo, $errCode, $errMsg, $result)
     
     RagnarSDK::digLogEnd($digpooint, array(
                 "url" => $info['url'], "method" => self::get_method(),
@@ -187,8 +188,8 @@ Mysql dig point
     //do some sql execute
     
     //for the mysql performance dig point end
-    RagnarSDK::digLogEnd($digpooint, array("sql" => $sql, "data" => "sql的参数", "op" => "select\delete\update\...", "fun" => "execute_sql"));
-    
+    //RagnarSDK::digLogEnd($digpooint, array("sql" => $sql, "data" => "sql的参数", "op" => "select\delete\update\...", "fun" => "execute_sql"));
+    RagnarSDK::digMysqlEnd($digPoint, $sql, "sql的参数", "select\delete\update\...", "execute_sql");
     //if is error
     if(error){
         RagnarSDK::RecordLog(RagnarSDK::LOG_TYPE_EXCEPTION, __FILE__, __LINE__, "mysql", array("fun" => "execute", "sql" => $sql, "error" => $error));
