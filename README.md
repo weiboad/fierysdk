@@ -1,6 +1,7 @@
 ### RagnarSDK
 
 ### Introdution
+[中文文档](./README_CN.md)
 > * for the complex system online tracing.
 > * support online debug.level log.exception and error collect.performance monitor and depend reloation picture
 > * for the https://github.com/weiboad/fiery
