@@ -88,11 +88,11 @@ nginx -s reload
 在项目框架初始化入口初始化Ragnar
 
 ```
-    requrire_once("ragnarsdk/src/MidTool.php");
-    requrire_once("ragnarsdk/src/RagnarConst.php");
-    requrire_once("ragnarsdk/src/RagnarSDK.php");
-    requrire_once("ragnarsdk/src/Traceid.php");
-    requrire_once("ragnarsdk/src/Util.php");
+    require_once("ragnarsdk/src/MidTool.php");
+    require_once("ragnarsdk/src/RagnarConst.php");
+    require_once("ragnarsdk/src/RagnarSDK.php");
+    require_once("ragnarsdk/src/Traceid.php");
+    require_once("ragnarsdk/src/Util.php");
     
     use \Adinf\RagnarSDK\RagnarSDK as RagnarSDK;
     use \Adinf\RagnarSDK\RagnarConst as RagnarConst;

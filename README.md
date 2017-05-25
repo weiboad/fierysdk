@@ -93,7 +93,7 @@ init on the bootstrap of php project
 
 
 ```
-    requrire_once("vendor/autoload.php");
+    require_once("vendor/autoload.php");
     
     
     use \Adinf\RagnarSDK\RagnarSDK as RagnarSDK;
