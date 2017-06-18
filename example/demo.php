@@ -16,10 +16,10 @@ RagnarSDK::setLogLevel(RagnarConst::LOG_TYPE_INFO);
 //\Adinf\RagnarSDK\RagnarSDK::init("ragnar_projectname");
 
 //命令行测试使用，生产环境不适用
-RagnarSDK::devmode("ragnar_projectname");
+RagnarSDK::devmode();
 
 //设置要索引的日志附加数据，在ES搜索内能看到，不建议加太多
-RagnarSDK::setMeta(123, "", array("extrakey" => "extraval"));
+RagnarSDK::setMeta(123, "", array( "extrakey" => "extraval" ));
 
 //输出info级别日志
 RagnarSDK::RecordLog(RagnarConst::LOG_TYPE_INFO, __FILE__, __LINE__, "module1_msg", "i wish i can fly!");
@@ -38,10 +38,11 @@ $a = RagnarSDK::getChildCallParam();
 //url 内包含变量替换注册函数演示
 $url = "http://dev.weibo.c1om/v1/log/12312312/lists.json?a=1";
 
-$filterURL = function ($url, $hashquery) {
+// url过滤回调函数
+$filterURL = function($url){
     return $url;
 };
-
+// url过滤回调注册
 RagnarSDK::setUrlFilterCallback($filterURL);
 
 var_dump(RagnarSDK::getTraceID());

@@ -242,7 +242,7 @@ class RagnarSDK
      * @param string $file 文件路径
      * @param int $line 写此日志的文件行数
      * @param string $tag 用户自定义tag，用来区分日志类型的
-     * @param string $content 日志内容
+     * @param string|array $content 日志内容
      */
     public static function RecordLog($type, $file, $line, $tag, $content)
     {
@@ -284,7 +284,7 @@ class RagnarSDK
     /**
      * 手动性能埋点结束，传入之前埋点函数返回的数据到这里即可产生日志
      * @param array $config 配置信息
-     * @param string $msg 附加文字信息
+     * @param string|array $msg 附加文字信息
      */
     public static function digLogEnd($config, $msg)
     {
