@@ -175,7 +175,7 @@ curl dig point
                 "param" => array("post" => $this->post_fields, "get" => $this->query_fields),
                 "info" => $info,
                 "error" => $ext,
-                "result" => $result,
+                "result" => json_decode($result,true),//must array
     );
 
 ```

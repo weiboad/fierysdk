@@ -166,7 +166,8 @@ curl埋点建议，key请沿用否则会在ragnar展示有问题，如果按照�
                 "param" => array("post" => $this->post_fields, "get" => $this->query_fields),
                 "info" => $info,
                 "error" => $ext,
-                "result" => $result,
+                "result" => json_decode($result,true),//must array
+
     );
 
 ```
