@@ -111,8 +111,8 @@ nginx -s reload
     //RagnarSDK::setMeta(123, "", array("extrakey" => "extraval"));
     
     //Ragnar 分级日志写入示范
-    RagnarSDK::RecordLog(RagnarConst::LOG_TYPE_INFO, __FILE__, __LINE__, "module1_msg", "i wish i can fly!");
-    RagnarSDK::RecordLog(RagnarConst::LOG_TYPE_INFO, __FILE__, __LINE__, "module2_msg", "i wish i'm rich!");
+    RagnarSDK::RecordLog(RagnarConst::LOG_TYPE_INFO, __FILE__, __LINE__, "module1_msg", array("msg"=>"i wish i can fly!");
+    RagnarSDK::RecordLog(RagnarConst::LOG_TYPE_INFO, __FILE__, __LINE__, "module2_msg", array("msg"=>"i wish i'm rich!");
     
     //Ragnar 性能日志手动性能埋点示范  ragnar_test 建议格式 curl mysql 等 （curl mysql在下面已经定义了格式，请参考如下使用）
     $digpooint = RagnarSDK::digLogStart(__FILE__,__LINE__,"ragnar_test");

@@ -118,9 +118,9 @@ init on the bootstrap of php project
     
     //Ragnar level log example
     // this is info log you can see this on tracing page on fiery 
-    RagnarSDK::RecordLog(RagnarConst::LOG_TYPE_INFO, __FILE__, __LINE__, "module1_msg", "i wish i can fly!");
+    RagnarSDK::RecordLog(RagnarConst::LOG_TYPE_INFO, __FILE__, __LINE__, "module1_msg", array("msg"=>"i wish i can fly!"));
     // this is debug log 
-    RagnarSDK::RecordLog(RagnarConst::LOG_TYPE_DEBUG, __FILE__, __LINE__, "module2_msg", "i wish i'm rich!");
+    RagnarSDK::RecordLog(RagnarConst::LOG_TYPE_DEBUG, __FILE__, __LINE__, "module2_msg",array("msg"=>"i wish im rich!");
     
     //customize performance dig point example will display on tracing page on fiery
     //dig start
