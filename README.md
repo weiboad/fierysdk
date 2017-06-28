@@ -109,6 +109,40 @@ init on the bootstrap of php project
     //default log level is info you can Temporary open the debug level by send header
     RagnarSDK::setLogLevel(RagnarConst::LOG_TYPE_INFO); 
     
+    // filter url
+    \Adinf\Ragnar\RagnarSDK::setUrlFilterCallback(function ($url, $hashquery) {
+        if (trim($url) == "") {
+            return "";
+        }
+        if (stripos($url, 'http') !== 0) {
+            $url = "http://" . $url;
+        }
+
+        $urlinfo = parse_url($url);
+
+        if(!$urlinfo){
+            return $url."#PARSERERROR";
+        }
+
+        if (!isset($urlinfo["scheme"])) {
+            $urlinfo["scheme"] = "http";
+        }
+
+        if (!isset($urlinfo["path"])) {
+            $urlinfo["path"] = "/";
+        }
+
+        if (!isset($urlinfo["query"])) {
+            $urlinfo["query"] = "";
+        }
+
+        if ($hashquery) {
+            return $urlinfo["scheme"] . "://" . $urlinfo["host"] . $urlinfo["path"] . "?" . $urlinfo["query"];
+        } else {
+            return $urlinfo["scheme"] . "://" . $urlinfo["host"] . $urlinfo["path"];
+        }
+     });
+         
     //this must run at latest
     //ragnar_projectname is you project name will use on log folder name
     RagnarSDK::init("ragnar_projectname");

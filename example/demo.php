@@ -15,6 +15,40 @@ RagnarSDK::setLogLevel(RagnarConst::LOG_TYPE_INFO);
 //初始化ragnar项目 实际生产环境用这个初始化,仅限FPM工作
 //\Adinf\RagnarSDK\RagnarSDK::init("ragnar_projectname");
 
+// url过滤回调函数
+\Adinf\Ragnar\RagnarSDK::setUrlFilterCallback(function ($url, $hashquery) {
+    if (trim($url) == "") {
+        return "";
+    }
+    if (stripos($url, 'http') !== 0) {
+        $url = "http://" . $url;
+    }
+
+    $urlinfo = parse_url($url);
+
+    if(!$urlinfo){
+        return $url."#PARSERERROR";
+    }
+
+    if (!isset($urlinfo["scheme"])) {
+        $urlinfo["scheme"] = "http";
+    }
+
+    if (!isset($urlinfo["path"])) {
+        $urlinfo["path"] = "/";
+    }
+
+    if (!isset($urlinfo["query"])) {
+        $urlinfo["query"] = "";
+    }
+
+    if ($hashquery) {
+        return $urlinfo["scheme"] . "://" . $urlinfo["host"] . $urlinfo["path"] . "?" . $urlinfo["query"];
+    } else {
+        return $urlinfo["scheme"] . "://" . $urlinfo["host"] . $urlinfo["path"];
+    }
+});
+
 //命令行测试使用，生产环境不适用
 RagnarSDK::devmode();
 

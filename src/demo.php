@@ -11,6 +11,39 @@ use \Adinf\RagnarSDK\RagnarConst as RagnarConst;
 error_reporting(E_ALL);
 ini_set("display_errors", "On");
 
+// url过滤回调函数
+\Adinf\Ragnar\RagnarSDK::setUrlFilterCallback(function ($url, $hashquery) {
+    if (trim($url) == "") {
+        return "";
+    }
+    if (stripos($url, 'http') !== 0) {
+        $url = "http://" . $url;
+    }
+
+    $urlinfo = parse_url($url);
+
+    if(!$urlinfo){
+        return $url."#PARSERERROR";
+    }
+
+    if (!isset($urlinfo["scheme"])) {
+        $urlinfo["scheme"] = "http";
+    }
+
+    if (!isset($urlinfo["path"])) {
+        $urlinfo["path"] = "/";
+    }
+
+    if (!isset($urlinfo["query"])) {
+        $urlinfo["query"] = "";
+    }
+
+    if ($hashquery) {
+        return $urlinfo["scheme"] . "://" . $urlinfo["host"] . $urlinfo["path"] . "?" . $urlinfo["query"];
+    } else {
+        return $urlinfo["scheme"] . "://" . $urlinfo["host"] . $urlinfo["path"];
+    }
+});
 
 //这俩必须在init之前
 //设置业务日志等级

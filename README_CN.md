@@ -103,6 +103,40 @@ nginx -s reload
     //默认开启info日志级别,低于此级别的日志不会被记录,建议将此日志集成到框架内分级日志内
     RagnarSDK::setLogLevel(RagnarConst::LOG_TYPE_INFO); 
     
+    // url过滤回调函数
+    \Adinf\Ragnar\RagnarSDK::setUrlFilterCallback(function ($url, $hashquery) {
+        if (trim($url) == "") {
+            return "";
+        }
+        if (stripos($url, 'http') !== 0) {
+            $url = "http://" . $url;
+        }
+
+        $urlinfo = parse_url($url);
+
+        if(!$urlinfo){
+            return $url."#PARSERERROR";
+        }
+
+        if (!isset($urlinfo["scheme"])) {
+            $urlinfo["scheme"] = "http";
+        }
+
+        if (!isset($urlinfo["path"])) {
+            $urlinfo["path"] = "/";
+        }
+
+        if (!isset($urlinfo["query"])) {
+            $urlinfo["query"] = "";
+        }
+
+        if ($hashquery) {
+            return $urlinfo["scheme"] . "://" . $urlinfo["host"] . $urlinfo["path"] . "?" . $urlinfo["query"];
+        } else {
+            return $urlinfo["scheme"] . "://" . $urlinfo["host"] . $urlinfo["path"];
+        }
+     });
+
     //这个函数一定要在所有shutdown之后执行，否则会少记录一些内容
     //ragnar_projectname为日志输出子路径目录名称，每个项目建议设置一个独立的名称
     RagnarSDK::init("ragnar_projectname");
