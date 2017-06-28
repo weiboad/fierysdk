@@ -12,7 +12,7 @@ error_reporting(E_ALL);
 ini_set("display_errors", "On");
 
 // url过滤回调函数
-\Adinf\Ragnar\RagnarSDK::setUrlFilterCallback(function ($url, $hashquery) {
+RagnarSDK::setUrlFilterCallback(function ($url, $hashquery) {
     if (trim($url) == "") {
         return "";
     }

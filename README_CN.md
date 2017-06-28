@@ -104,7 +104,7 @@ nginx -s reload
     RagnarSDK::setLogLevel(RagnarConst::LOG_TYPE_INFO); 
     
     // url过滤回调函数
-    \Adinf\Ragnar\RagnarSDK::setUrlFilterCallback(function ($url, $hashquery) {
+    RagnarSDK::setUrlFilterCallback(function ($url, $hashquery) {
         if (trim($url) == "") {
             return "";
         }

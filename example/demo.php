@@ -16,7 +16,7 @@ RagnarSDK::setLogLevel(RagnarConst::LOG_TYPE_INFO);
 //\Adinf\RagnarSDK\RagnarSDK::init("ragnar_projectname");
 
 // url过滤回调函数
-\Adinf\Ragnar\RagnarSDK::setUrlFilterCallback(function ($url, $hashquery) {
+RagnarSDK::setUrlFilterCallback(function ($url, $hashquery) {
     if (trim($url) == "") {
         return "";
     }

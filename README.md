@@ -110,7 +110,7 @@ init on the bootstrap of php project
     RagnarSDK::setLogLevel(RagnarConst::LOG_TYPE_INFO); 
     
     // filter url
-    \Adinf\Ragnar\RagnarSDK::setUrlFilterCallback(function ($url, $hashquery) {
+    RagnarSDK::setUrlFilterCallback(function ($url, $hashquery) {
         if (trim($url) == "") {
             return "";
         }
