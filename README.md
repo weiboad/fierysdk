@@ -109,8 +109,10 @@ init on the bootstrap of php project
     //default log level is info you can Temporary open the debug level by send header
     RagnarSDK::setLogLevel(RagnarConst::LOG_TYPE_INFO); 
     
-    // filter url
-    //when the url contained parameter on path such as http://wwwei.com/usr/$uid(an var alway change)/fetch you must write an rule on this callback filted to http://wwwei.com/usr/releaced/fetch
+    //filter url
+    //when the url contained parameter on path such as 
+    //http://wwwei.com/usr/$uid(an var alway change)/fetch 
+    //you must write an rule on this callback filted to http://wwwei.com/usr/releaced/fetch
     RagnarSDK::setUrlFilterCallback(function ($url, $hashquery) {
         if (trim($url) == "") {
             return "";
