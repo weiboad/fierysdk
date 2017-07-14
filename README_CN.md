@@ -104,7 +104,8 @@ nginx -s reload
     RagnarSDK::setLogLevel(RagnarConst::LOG_TYPE_INFO); 
     
     // url过滤回调函数
-    RagnarSDK::setUrlFilterCallback(function ($url, $hashquery) {
+    //如果存在特殊url如 http://wwwei.com/usr/uid参数/fetch 这类特殊url，需要再下面函数内做个过滤如过滤成http://wwwei.com/usr/releaced/fetch
+    RagnarSDK::setUrlFilterCallback(function ($url, $hashquery) {
         if (trim($url) == "") {
             return "";
         }
