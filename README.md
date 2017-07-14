@@ -3,61 +3,62 @@
 [![Latest Stable Version](https://poser.pugx.org/weiboad/fierysdk/v/stable)](https://packagist.org/packages/weiboad/fierysdk)
 [![Latest Unstable Version](https://poser.pugx.org/weiboad/fierysdk/v/unstable)](https://packagist.org/packages/weiboad/fierysdk)
 [![License](https://poser.pugx.org/weiboad/fierysdk/license)](https://packagist.org/packages/weiboad/fierysdk)
-### Introdution
-[中文文档](./README_CN.md)
+
+Other Laguage Introduce: [中文文档](./README_CN.md)
+
+### Introduce
 > * for the complex system online tracing.
 > * support online debug.level log.exception and error collect.performance monitor and depend reloation picture
 > * for the https://github.com/weiboad/fiery
 
-### install
+### Requirement
 > * PHP5.3+ with bcmath
 > * charset utf-8 project
 
-#### Nginx
+#### Step 1 Container Variable
 
-copy the nginx/fiery_fastcgi_pararms -> nginx/conf
-and edit the vhost config
-example：
+##### Nginx
+copy the nginx/fiery_fastcgi_pararms -> nginx/conf and edit the vhost config
 
 ```
-    server{
-        listen 80;
-        charset utf-8;
-        root /path/xxx/xxx/src/public;
-        server_name xxx.com;
-        
-        location /{
-            index index.php index.html index.htm;
-            if (-f $request_filename) {
-                break;
-            }
-            if (-d $request_filename) {
-                break;
-            }
-            if ($request_filename !~ (\.css|images|index\.php.*) ) {
-                rewrite ^/(.*)$ /index.php/$1 last;
-                break;
-            }
-        }
+server{
+    listen 80;
+    charset utf-8;
+    root /path/xxx/xxx/src/public;
+    server_name xxx.com;
     
-        location ~ /index.php/ {
-            fastcgi_index index.php;
-            fastcgi_pass 127.0.0.1:9000;
-            include fastcgi_params;
-            include fiery_fastcgi_params; # here is the point
-            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-            fastcgi_read_timeout 600;
+    location /{
+        index index.php index.html index.htm;
+        if (-f $request_filename) {
+            break;
         }
-    
-        location ~ \.php$ {
-            fastcgi_index index.php;
-            fastcgi_pass 127.0.0.1:9000;
-            include fastcgi_params;
-            include fiery_fastcgi_params; # here is the point
-            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-            fastcgi_read_timeout 600;
+        if (-d $request_filename) {
+            break;
+        }
+        if ($request_filename !~ (\.css|images|index\.php.*) ) {
+            rewrite ^/(.*)$ /index.php/$1 last;
+            break;
         }
     }
+
+    location ~ /index.php/ {
+        fastcgi_index index.php;
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        include fiery_fastcgi_params; # here is the point
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_read_timeout 600;
+    }
+
+    location ~ \.php$ {
+        fastcgi_index index.php;
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        include fiery_fastcgi_params; # here is the point
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_read_timeout 600;
+    }
+}
 ```
 
 ```
@@ -66,7 +67,7 @@ nginx -s reload
 
 ```
 
-#### Apache Env
+###### Apache
 ```
 <VirtualHost *:80>
     ServerAdmin webmaster@demo.com
@@ -74,6 +75,8 @@ nginx -s reload
     ServerName my.demo.com
     ErrorLog "logs/my.demo.com-error.log"
     CustomLog "logs/my.demo.com-access.log" common
+    
+    # start config the variable for fierysdk
     SetEnv RAGNAR_LOGPATH /data1/ragnar/  # here is the point
     SetEnv RAGNAR_IDC 0  # here is the point
     SetEnv RAGNAR_IP 192.168.1.123  # here is the point
@@ -86,14 +89,14 @@ nginx -s reload
 </VirtualHost>
 ```
 
-#### Ragnarsdk Introduce
+#### Fierysdk Install
 
 Run command to get this composer
 ```
 composer require weiboad/fierysdk
 
 ```
-init on the bootstrap of php project
+insert code on the bootstrap of php project
 
 
 ```
@@ -113,6 +116,7 @@ init on the bootstrap of php project
     //when the url contained parameter on path such as 
     //http://wwwei.com/usr/$uid(an var alway change)/fetch 
     //you must write an rule on this callback filted to http://wwwei.com/usr/releaced/fetch
+    
     RagnarSDK::setUrlFilterCallback(function ($url, $hashquery) {
         if (trim($url) == "") {
             return "";
@@ -149,13 +153,11 @@ init on the bootstrap of php project
     //this must run at latest
     //ragnar_projectname is you project name will use on log folder name
     RagnarSDK::init("ragnar_projectname");
-     
-    //extra info on the meta log .please don't set too much
-    //RagnarSDK::setMeta(123, "", array("extrakey" => "extraval"));
     
     //Ragnar level log example
     // this is info log you can see this on tracing page on fiery 
     RagnarSDK::RecordLog(RagnarConst::LOG_TYPE_INFO, __FILE__, __LINE__, "module1_msg", array("msg"=>"i wish i can fly!"));
+    
     // this is debug log 
     RagnarSDK::RecordLog(RagnarConst::LOG_TYPE_DEBUG, __FILE__, __LINE__, "module2_msg",array("msg"=>"i wish im rich!");
     
@@ -184,7 +186,6 @@ init on the bootstrap of php project
 > * LOG_TYPE_ERROR when the system error will record this level
 > * LOG_TYPE_EMEGENCY emegency log that will send SMS or Email to admin
 > * LOG_TYPE_EXCEPTION Exception log
-
 > * LOG_TYPE_PERFORMENCE performance log all the dig point will use this
 
 

@@ -12,9 +12,7 @@
 
 #### Nginx配置
 
-copy the nginx/fiery_fastcgi_pararms -> nginx/conf
-and edit the vhost config
-example：
+拷贝 nginx/fiery_fastcgi_pararms 到 nginx的conf文件夹，并把他include到vhost配置内
 
 ```
     server{
@@ -58,7 +56,7 @@ example：
 ```
 
 ```
-# reload the nginx config
+# nginx重新加载配置
 nginx -s reload
 
 ```
@@ -71,6 +69,8 @@ nginx -s reload
     ServerName my.demo.com
     ErrorLog "logs/my.demo.com-error.log"
     CustomLog "logs/my.demo.com-access.log" common
+    
+    # apache可以直接在配置内设置相关变量
     SetEnv RAGNAR_LOGPATH /data1/ragnar/  # 这里
     SetEnv RAGNAR_IDC 0  # 这里
     SetEnv RAGNAR_IP 192.168.1.123  # 这里
@@ -103,9 +103,10 @@ nginx -s reload
     //默认开启info日志级别,低于此级别的日志不会被记录,建议将此日志集成到框架内分级日志内
     RagnarSDK::setLogLevel(RagnarConst::LOG_TYPE_INFO); 
     
-    // url过滤回调函数
+    // url自定义过滤回调函数
     //如果存在特殊url如 http://wwwei.com/usr/uid参数/fetch 
-    //这类特殊url，需要再下面函数内做个过滤如过滤成http://wwwei.com/usr/releaced/fetch
+    //这类特殊url，需要再下面函数内做个过滤如过滤成 http://wwwei.com/usr/releaced/fetch
+    //否则会导致api统计不准确
     RagnarSDK::setUrlFilterCallback(function ($url, $hashquery) {
         if (trim($url) == "") {
             return "";
@@ -142,13 +143,10 @@ nginx -s reload
     //这个函数一定要在所有shutdown之后执行，否则会少记录一些内容
     //ragnar_projectname为日志输出子路径目录名称，每个项目建议设置一个独立的名称
     RagnarSDK::init("ragnar_projectname");
-     
-    //设置要索引的日志附加数据，在搜索内能看到，切勿过长
-    //RagnarSDK::setMeta(123, "", array("extrakey" => "extraval"));
     
     //Ragnar 分级日志写入示范
     RagnarSDK::RecordLog(RagnarConst::LOG_TYPE_INFO, __FILE__, __LINE__, "module1_msg", array("msg"=>"i wish i can fly!");
-    RagnarSDK::RecordLog(RagnarConst::LOG_TYPE_INFO, __FILE__, __LINE__, "module2_msg", array("msg"=>"i wish i'm rich!");
+    RagnarSDK::RecordLog(RagnarConst::LOG_TYPE_ERROR, __FILE__, __LINE__, "module2_msg", array("msg"=>"i wish i'm rich!");
     
     //Ragnar 性能日志手动性能埋点示范  ragnar_test 建议格式 curl mysql 等 （curl mysql在下面已经定义了格式，请参考如下使用）
     $digpooint = RagnarSDK::digLogStart(__FILE__,__LINE__,"ragnar_test");
@@ -174,7 +172,6 @@ nginx -s reload
 > * LOG_TYPE_ERROR 系统错误信息日志，此日志信息一旦产生会在平台错误统计内去重列出
 > * LOG_TYPE_EMEGENCY 系统警报信息日志，此日志信息一旦产生会在平台错误统计内去重列出，并发送邮件短信通知
 > * LOG_TYPE_EXCEPTION 系统异常信息日志，此日志信息一旦产生会在平台错误统计内去重列出
-
 > * LOG_TYPE_PERFORMENCE 所有性能埋点函数产生的日志信息，使用的时候请使用示范的标准格式，否则平台渲染会出现问题
 
 
