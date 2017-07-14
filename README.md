@@ -110,6 +110,7 @@ init on the bootstrap of php project
     RagnarSDK::setLogLevel(RagnarConst::LOG_TYPE_INFO); 
     
     // filter url
+    //when the url contained parameter on path such as http://wwwei.com/usr/$uid(an var alway change)/fetch you must write an rule on this callback filted to http://wwwei.com/usr/releaced/fetch
     RagnarSDK::setUrlFilterCallback(function ($url, $hashquery) {
         if (trim($url) == "") {
             return "";
