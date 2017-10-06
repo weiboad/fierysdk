@@ -35,7 +35,7 @@ class RagnarSDK
     private static $_idc;
     private static $_ip;
 
-    //project name 当前鲜明名称，会作为日志保存目录名
+    //project name 当前项目名称，会作为日志保存目录名
     private static $_project = "";
 
     //log level 默认分级日志级别，生产环境一般都是Error
