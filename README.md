@@ -225,16 +225,16 @@ Mysql dig point
     RagnarSDK::RecordLog(\Adinf\RagnarSDK\RagnarSDK::LOG_TYPE_EXCEPTION, __FILE__, __LINE__, "mysql", array("fun" => "query", "sql" => $sql, "error" => $ex->getMessage()));
     
     //start monitor the performance
-    $digpooint = RagnarSDK::digLogStart(__FILE__, __LINE__, "mysql");
+    $digPoint = RagnarSDK::digLogStart(__FILE__, __LINE__, "mysql");
     
     //do some sql execute
     
     //for the mysql performance dig point end
-    //RagnarSDK::digLogEnd($digpooint, array("sql" => $sql, "data" => "sql的参数", "op" => "select\delete\update\...", "fun" => "execute_sql"));
+    //RagnarSDK::digLogEnd($digPoint, array("sql" => $sql, "data" => "sql的参数", "op" => "select\delete\update\...", "fun" => "execute_sql"));
     RagnarSDK::digMysqlEnd($digPoint, $sql, "sql的参数", "select\delete\update\...", "execute_sql");
     //if is error
     if(error){
-        RagnarSDK::RecordLog(RagnarSDK::LOG_TYPE_EXCEPTION, __FILE__, __LINE__, "mysql", array("fun" => "execute", "sql" => $sql, "error" => $error));
+        RagnarSDK::RecordLog(RagnarConst::LOG_TYPE_EXCEPTION, __FILE__, __LINE__, "mysql", array("fun" => "execute", "sql" => $sql, "error" => $error));
     }
 ```
 
