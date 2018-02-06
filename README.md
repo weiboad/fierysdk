@@ -222,7 +222,7 @@ curl dig point
 Mysql dig point
 ```
     //this for record the exception when the error
-    RagnarSDK::RecordLog(\Adinf\Ragnar\Ragnar::LOG_TYPE_EXCEPTION, __FILE__, __LINE__, "mysql", array("fun" => "query", "sql" => $sql, "error" => $ex->getMessage()));
+    RagnarSDK::RecordLog(\Adinf\RagnarSDK\RagnarSDK::LOG_TYPE_EXCEPTION, __FILE__, __LINE__, "mysql", array("fun" => "query", "sql" => $sql, "error" => $ex->getMessage()));
     
     //start monitor the performance
     $digpooint = RagnarSDK::digLogStart(__FILE__, __LINE__, "mysql");
