@@ -5,7 +5,7 @@
     "fiery",
     "Burial SDK"
   ],
-  "license": "Apache",
+  "license": "Apache-2.0",
   "homepage": "https://github.com/weiboad/fierysdk",
   "require": {
     "php": ">=5.3"
